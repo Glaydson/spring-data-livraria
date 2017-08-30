@@ -17,12 +17,16 @@ public class Livro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LIVRO_ID")
 	private Long livroID;
+	
 	@Column(name = "TITULO")
 	private String titulo;
+	
 	@Column(name = "DATA_PUBLICACAO")
 	private Date dataPublicacao;
+	
 	@Column(name = "NUMERO_PAGINAS")
 	private int numeroPaginas;
+	
 	@Column(name = "PRECO")
 	private BigDecimal preco;
 
@@ -81,7 +85,5 @@ public class Livro {
 		return "Livro [livroID=" + livroID + ", titulo=" + titulo + ", dataPublicacao=" + dataPublicacao
 				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + "]";
 	}
-	
-	
 
 }
