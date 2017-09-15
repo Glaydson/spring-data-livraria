@@ -1,13 +1,18 @@
-package br.edu.unichristus.springdatalivraria;
+package br.edu.unichristus.springdatalivraria.entidades;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,27 +22,35 @@ public class Livro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LIVRO_ID")
 	private Long livroID;
-	
+
 	@Column(name = "TITULO")
 	private String titulo;
-	
+
 	@Column(name = "DATA_PUBLICACAO")
-	private Date dataPublicacao;
-	
+	private LocalDate dataPublicacao;
+
 	@Column(name = "NUMERO_PAGINAS")
 	private int numeroPaginas;
-	
+
 	@Column(name = "PRECO")
 	private BigDecimal preco;
+
+	@ManyToOne
+	@JoinColumn (name="EDITORA_ID")
+	private Editora editora;
+	
+	@ManyToMany(mappedBy="livros")
+	private List<Autor> autores;
 
 	public Livro() {
 	}
 
-	public Livro(String titulo, Date dataPublicacao, int numeroPaginas, BigDecimal preco) {
+	public Livro(String titulo, LocalDate dataPublicacao, int numeroPaginas, BigDecimal preco, Editora editora) {
 		this.titulo = titulo;
 		this.dataPublicacao = dataPublicacao;
 		this.numeroPaginas = numeroPaginas;
 		this.preco = preco;
+		this.editora = editora;
 	}
 
 	public Long getLivroID() {
@@ -56,11 +69,11 @@ public class Livro {
 		this.titulo = titulo;
 	}
 
-	public Date getDataPublicacao() {
+	public LocalDate getDataPublicacao() {
 		return dataPublicacao;
 	}
 
-	public void setDataPublicacao(Date dataPublicacao) {
+	public void setDataPublicacao(LocalDate dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
 
@@ -80,10 +93,31 @@ public class Livro {
 		this.preco = preco;
 	}
 
+	public Editora getEditora() {
+		return editora;
+	}
+
+	public void setEditora(Editora editora) {
+		this.editora = editora;
+	}
+	
+	
+
+	public List<Autor> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+
 	@Override
 	public String toString() {
 		return "Livro [livroID=" + livroID + ", titulo=" + titulo + ", dataPublicacao=" + dataPublicacao
-				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + "]";
+				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + ", editora=" + editora + ", autores="
+				+ autores + "]";
 	}
+
+	
 
 }

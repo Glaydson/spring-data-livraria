@@ -10,7 +10,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+import br.edu.unichristus.springdatalivraria.entidades.Livro;
+import br.edu.unichristus.springdatalivraria.servicos.LivroService;
+
+//@SpringBootApplication
 public class SpringDataLivrariaApplication implements CommandLineRunner {
 
 	@Autowired
@@ -18,8 +21,8 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		Livro livro = new Livro("Java Como Programar", new Date(), 250, new BigDecimal("15.00"));
-		this.servicoLivros.gravar(livro);
+	//	Livro livro = new Livro("Java Como Programar", new Date(), 250, new BigDecimal("15.00"));
+	//	this.servicoLivros.gravar(livro);
 		
 		// Buscando um livro pelo seu ID
 		Livro livro1 = this.servicoLivros.buscarPeloID(7L);
@@ -34,7 +37,20 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 		for (Livro l : livros2) {
 		    System.out.println(l);
 		}
+		
+		// Alterar o título do livro com id = 1
+		Livro livro3 = this.servicoLivros.buscarPeloID(1L);
+		System.out.println(livro3);
+		livro3.setTitulo("Pro Spring");
+		this.servicoLivros.gravar(livro3);
+		System.out.println(livro3);
 
+		// Removendo dois livros
+		this.servicoLivros.remover(1L);
+		this.servicoLivros.remover(this.servicoLivros.buscarPeloID(2L));
+
+		Livro livro5 = this.servicoLivros.buscarPeloTitulo("Guerra e Paz");
+		System.out.println(livro5);
 
 	}
 
