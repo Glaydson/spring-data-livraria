@@ -8,4 +8,7 @@ import br.edu.unichristus.springdatalivraria.entidades.Editora;
 @Repository
 public interface EditoraRepository extends JpaRepository<Editora, Long> {
 
+	// Buscar uma editora pelo seu nome
+	Editora findByNome(String nomeEditora);
+
 }

@@ -3,6 +3,8 @@ package br.edu.unichristus.springdatalivraria.servicos;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class LivroService {
     @Autowired
     private LivroRepository repo;
 
-    public void gravar(Livro livro) {
+    public void gravar(Livro livro) throws PersistenceException{
         this.repo.save(livro);
         System.out.println("LIVRO SALVO!");
     }
@@ -41,7 +43,20 @@ public class LivroService {
         return this.repo.findByTitulo(titulo);
     }
 
-
+    public List<Livro> buscarPeloNomeEditora(String nomeEditora) {
+    	System.out.println("Buscando os livros da editora " + nomeEditora);
+    	return this.repo.findByEditoraNome(nomeEditora);
+    }
+    
+    public List<Livro> buscarPeloNomeAutor(String nomeAutor) {
+    	System.out.println("Buscando os livros do autor " + nomeAutor);
+    	return this.repo.findByAutoresNome(nomeAutor);
+    }
+    
+    public List<Livro> buscarLivrosPais(String pais) {
+    	System.out.println("Buscando os livros dos autores do país " + pais);
+    	return this.repo.findByAutoresPais(pais);
+    }
 
 }
 

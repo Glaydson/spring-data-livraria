@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,18 +20,22 @@ public class Editora {
 	@Column(name = "EDITORA_ID")
 	private Long editoraID;
 
-	@Column(name = "NOME")
+	@Column(name = "NOME", unique=true)
 	private String nome;
 
-	@Column(name = "CIDADE")
+	@Column(name = "CIDADE", nullable=false)
 	private String cidade;
 
 	@Column(name = "ANO_FUNDACAO")
 	private int anoFundacao;
 
-	@OneToMany(mappedBy = "editora")
+	@OneToMany(mappedBy = "editora", fetch=FetchType.EAGER)
 	private List<Livro> livros;
 	// CONSTRUTOR, GETTERS E SETTERS, MÉTODO toString
+	
+	public Editora() {
+		
+	}
 
 	public Editora(String nome, String cidade, int anoFundacao) {
 		super();

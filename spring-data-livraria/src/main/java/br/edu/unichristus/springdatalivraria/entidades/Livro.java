@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class Livro {
 	@JoinColumn (name="EDITORA_ID")
 	private Editora editora;
 	
-	@ManyToMany(mappedBy="livros")
+	@ManyToMany(mappedBy="livros", fetch=FetchType.EAGER)
 	private List<Autor> autores;
 
 	public Livro() {
@@ -114,10 +115,18 @@ public class Livro {
 	@Override
 	public String toString() {
 		return "Livro [livroID=" + livroID + ", titulo=" + titulo + ", dataPublicacao=" + dataPublicacao
-				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + ", editora=" + editora + ", autores="
-				+ autores + "]";
+				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + ", editora=" + editora.getNome() + ", autores="
+				+ listarAutores(autores) + "]";
 	}
 
+	// Devolve a lista dos nomes dos autores de um livro
+	private String listarAutores(List<Autor> autores) {
+		String lista = "";
+		for (Autor a: autores) {
+			lista = lista + a.getNome() + " ";
+		}
+		return lista;
+	}
 	
 
 }
